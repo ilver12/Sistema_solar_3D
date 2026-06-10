@@ -338,6 +338,14 @@ function abrirVistaAuxiliar(view) {
 }
 
 function setupEventos() {
+  const hint = document.querySelector(".viewer-stage__hint");
+  if (hint) {
+    const ocultarHint = () => hint.classList.add("is-hidden");
+    window.setTimeout(ocultarHint, 6000);
+    els.viewerStage.addEventListener("pointerdown", ocultarHint, { once: true });
+    els.viewerStage.addEventListener("wheel", ocultarHint, { once: true });
+  }
+
   els.modeTabs.querySelectorAll("button").forEach((button) => {
     button.addEventListener("click", () => {
       els.modeTabs

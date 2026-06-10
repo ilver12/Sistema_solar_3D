@@ -516,6 +516,8 @@ img {
   top: 16px;
   left: 18px;
   z-index: 2;
+  pointer-events: none;
+  transition: opacity 0.45s ease;
   width: min(280px, calc(100% - 36px));
   display: flex;
   align-items: center;
@@ -528,6 +530,10 @@ img {
   border: 1px solid rgba(255, 255, 255, 0.68);
   background: rgba(255, 255, 255, 0.82);
   backdrop-filter: blur(8px);
+}
+
+.viewer-stage__hint.is-hidden {
+  opacity: 0;
 }
 
 .viewer-stage__hint svg {
