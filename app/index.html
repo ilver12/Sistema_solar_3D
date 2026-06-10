@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      if (window.location.pathname.endsWith("/app")) {
+        window.location.replace(
+          `${window.location.pathname}/${window.location.search}${window.location.hash}`
+        );
+      }
+    </script>
+    <title>Sistema Solar Studio · Explora el sistema solar en 3D</title>
+    <link rel="stylesheet" href="./css/styles.css" />
+    <link
+      rel="icon"
+      type="image/png"
+      href="../app-assets/identidad/logo.png"
+    />
+    <script
+      type="module"
+      src="https://unpkg.com/@google/model-viewer@3.5.0/dist/model-viewer.min.js"
+    ></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+  </head>
+  <body>
+    <div class="app" id="app">
+      <header class="topbar">
+        <div class="topbar__brand">
+          <div
+            class="topbar__logo"
+            role="img"
+            aria-label="Sistema Solar Studio"
+          ></div>
+          <div class="topbar__title">
+            <strong>Sistema Solar Studio</strong>
+            <span>Explora el sistema solar en 3D</span>
+          </div>
+        </div>
+
+        <nav class="topbar__nav" id="topbar-nav">
+          <a href="./studio.html">Estudio</a>
+          <button class="is-active" data-view="galeria">Galería</button>
+          <button data-view="biblioteca">Biblioteca</button>
+          <button data-view="cuaderno">Cuaderno</button>
+          <button data-view="ajustes">Ajustes</button>
+        </nav>
+
+        <div
+          class="topbar__avatar"
+          title="Perfil"
+          aria-label="Perfil"
+        ></div>
+      </header>
+
+      <main class="workspace">
+        <aside class="card organ-card">
+          <h2 class="card__title">Cuerpos celestes</h2>
+          <div class="organ-list" id="organ-list"></div>
+        </aside>
+
+        <section class="center-column">
+          <section class="card viewer-card" id="viewer-card">
+            <div class="viewer-header">
+              <div class="viewer-title">
+                <h1 id="viewer-name">—</h1>
+                <p id="viewer-system">—</p>
+              </div>
+
+              <div class="viewer-mode">
+                <div class="viewer-mode__label">Modo de vista</div>
+                <div class="viewer-mode__tabs" id="mode-tabs">
+                  <button class="is-active" data-mode="3d">3D</button>
+                  <button data-mode="ar">AR</button>
+                  <button data-mode="360">360°</button>
+                </div>
+                <label class="viewer-mode__toggle">
+                  <span
+                    class="switch is-on"
+                    id="anatomy-switch"
+                    role="switch"
+                    aria-checked="true"
+                  ></span>
+                  Órbitas de fondo
+                </label>
+              </div>
+            </div>
+
+            <div class="viewer-stage with-anatomy" id="viewer-stage">
+              <div class="viewer-stage__art" aria-hidden="true"></div>
+              <div class="viewer-stage__hint" aria-hidden="true">
+                <i data-lucide="hand"></i>
+                <span>Arrastra para rotar, rueda para acercar, doble clic para enfocar.</span>
+              </div>
+              <div class="viewer-stage__loading">Cargando modelo 3D…</div>
+
+              <model-viewer
+                id="model-viewer"
+                alt="Modelo 3D del cuerpo celeste seleccionado"
+                camera-controls
+                touch-action="pan-y"
+                shadow-intensity="0"
+                exposure="1.1"
+                environment-image="neutral"
+                auto-rotate-delay="500"
+                interaction-prompt="auto"
+                ar
+                ar-modes="webxr scene-viewer quick-look"
+              ></model-viewer>
+
+              <button
+                id="btn-exit-fullscreen"
+                class="exit-fullscreen"
+                title="Salir de pantalla completa"
+              >
+                <i data-lucide="minimize-2"></i>
+                <span>Salir</span>
+              </button>
+            </div>
+
+            <div class="viewer-actions">
+              <div class="viewer-actions__group">
+                <button id="btn-reset" title="Restablecer vista">
+                  <i data-lucide="rotate-ccw"></i>
+                  <span>Restablecer</span>
+                </button>
+                <button id="btn-zoom-in" title="Acercar">
+                  <i data-lucide="zoom-in"></i>
+                  <span>Acercar</span>
+                </button>
+                <button id="btn-zoom-out" title="Alejar">
+                  <i data-lucide="zoom-out"></i>
+                  <span>Alejar</span>
+                </button>
+              </div>
+              <div class="viewer-actions__group">
+                <button id="btn-fullscreen" title="Pantalla completa">
+                  <i data-lucide="maximize"></i>
+                  <span>Pantalla completa</span>
+                </button>
+              </div>
+            </div>
+          </section>
+
+          <div class="center-bottom">
+            <article class="card collapsible" data-key="galeria">
+              <header class="card__head">
+                <h2 class="card__title">Galería educativa</h2>
+                <button
+                  class="card__toggle"
+                  aria-expanded="true"
+                  aria-label="Mostrar u ocultar galería"
+                >
+                  <i data-lucide="chevron-down"></i>
+                </button>
+              </header>
+              <div class="card__body">
+                <div class="gallery">
+                  <button class="gallery__item" data-gallery="anatomia">
+                    <img id="gallery-anatomy" alt="Estructura interna" />
+                    <span>Estructura interna</span>
+                  </button>
+                  <button class="gallery__item" data-gallery="ficha">
+                    <img id="gallery-facts" alt="Ficha visual" />
+                    <span>Ficha visual</span>
+                  </button>
+                </div>
+              </div>
+            </article>
+
+            <article class="card compare-card collapsible" data-key="comparar">
+              <header class="card__head">
+                <h2 class="card__title">Comparar cuerpos celestes</h2>
+                <button
+                  class="card__toggle"
+                  aria-expanded="true"
+                  aria-label="Mostrar u ocultar comparador"
+                >
+                  <i data-lucide="chevron-down"></i>
+                </button>
+              </header>
+              <div class="card__body">
+                <div class="compare-row">
+                  <div class="compare-chip">
+                    <img id="compare-a-thumb" alt="" />
+                    <strong id="compare-a-name">—</strong>
+                    <small id="compare-a-system">—</small>
+                    <select id="compare-a-select"></select>
+                  </div>
+                  <div class="compare-vs">VS</div>
+                  <div class="compare-chip">
+                    <img id="compare-b-thumb" alt="" />
+                    <strong id="compare-b-name">—</strong>
+                    <small id="compare-b-system">—</small>
+                    <select id="compare-b-select"></select>
+                  </div>
+                </div>
+                <button class="compare-open" id="btn-compare">
+                  Abrir comparación
+                </button>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <aside class="right-column">
+          <section class="card detail-card">
+            <h2 class="card__title">Detalles del cuerpo celeste</h2>
+            <div class="detail-card__header">
+              <img id="detail-avatar" class="detail-card__avatar" alt="" />
+              <div class="detail-card__name">
+                <strong id="detail-name">—</strong>
+                <em id="detail-descriptor">—</em>
+              </div>
+            </div>
+            <div class="detail-grid" id="detail-grid"></div>
+          </section>
+
+          <section class="card notes-card collapsible" data-key="notas">
+            <header class="card__head">
+              <h2 class="card__title">Notas astronómicas</h2>
+              <button
+                class="card__toggle"
+                aria-expanded="true"
+                aria-label="Mostrar u ocultar notas"
+              >
+                <i data-lucide="chevron-down"></i>
+              </button>
+            </header>
+            <div class="card__body">
+              <p id="notes-text">—</p>
+              <p class="dato" id="notes-fact">—</p>
+            </div>
+          </section>
+        </aside>
+      </main>
+    </div>
+
+    <div class="modal" id="modal-image">
+      <div class="modal__panel modal__panel--image">
+        <div class="modal__head">
+          <h2 id="modal-image-title">Galería</h2>
+          <button class="modal__close" data-close aria-label="Cerrar">
+            <i data-lucide="x"></i>
+          </button>
+        </div>
+        <img id="modal-image-img" alt="" />
+        <p id="modal-image-caption"></p>
+      </div>
+    </div>
+
+    <div class="modal" id="modal-compare">
+      <div class="modal__panel">
+        <div class="modal__head">
+          <h2>Comparar cuerpos celestes</h2>
+          <button class="modal__close" data-close aria-label="Cerrar">
+            <i data-lucide="x"></i>
+          </button>
+        </div>
+        <div class="compare-grid" id="compare-grid"></div>
+      </div>
+    </div>
+
+    <div class="modal" id="modal-view">
+      <div class="modal__panel">
+        <div class="modal__head">
+          <h2 id="modal-view-title">—</h2>
+          <button class="modal__close" data-close aria-label="Cerrar">
+            <i data-lucide="x"></i>
+          </button>
+        </div>
+        <div id="modal-view-body"></div>
+      </div>
+    </div>
+
+    <div class="toast" id="toast">Listo</div>
+
+    <script type="module" src="./js/app.js?v=1"></script>
+  </body>
+</html>

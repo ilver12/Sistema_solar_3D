@@ -1,0 +1,60 @@
+============================================================
+  SISTEMA SOLAR STUDIO  -  COMO EJECUTAR LA APP
+============================================================
+
+QUE NECESITAS
+-------------
+- Una computadora con Windows, Mac o Linux.
+- Node.js instalado (descargar en: https://nodejs.org)
+  > Solo eso. No hace falta instalar nada mas.
+
+
+PASOS
+-----
+1) Copia toda la carpeta "Sistema_solar_3D" al nuevo computador.
+
+2) Abre la terminal (PowerShell, CMD o Terminal) y entra a
+   la carpeta "app":
+
+      cd ruta\donde\copiaste\Sistema_solar_3D\app
+
+3) Ejecuta:
+
+      npm start
+
+4) Espera a que aparezca:  "Accepting connections at http://localhost:5173"
+
+5) Abre el navegador (Chrome, Edge o Firefox) en:
+
+      http://localhost:5173/app/
+
+6) Para abrir el modo de armado 3D, usa:
+
+      http://localhost:5173/app/studio.html
+
+
+LISTO! Ya puedes usar la app.
+
+
+PARA DETENER
+------------
+En la terminal presiona:  Ctrl + C
+
+
+PROBLEMAS COMUNES
+-----------------
+- "npm no se reconoce"
+  > Instala Node.js desde https://nodejs.org y reinicia la terminal.
+
+- "El puerto 5173 esta ocupado"
+  > Cierra el otro programa o cambia 5173 por 8080 en el archivo
+    app\package.json y vuelve a ejecutar npm start.
+
+- "Solo veo un listado de carpetas"
+  > Asegurate de poner /app/ al final de la URL.
+
+- "El modelo 3D no carga al abrir index.html directamente"
+  > NO abras index.html con doble clic. Siempre tiene que ser
+    a traves del servidor con npm start.
+
+============================================================
